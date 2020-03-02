@@ -1,16 +1,21 @@
-#include<cstdio>  
-const int mod = 1e9;  
-const int maxn = 1000001;  
-  
-int f[maxn];  
-  
-int main()  
-{  
-    int n, i;  
-    f[1] = 1, f[2] = 2;  
-    for (i = 3; i < maxn; ++i)  
-        f[i] = (i & 1 ? f[i - 1] : (f[i - 2] + f[i >> 1]) % mod) ;  
-    while (~scanf("%d", &n))  
-        printf("%d\n", f[n]);  
-    return 0;  
-}  
+#include <iostream>
+#define MAX_N 1000000 + 1
+using namespace std;
+
+int N, dp[MAX_N] = {0};
+const int mod = 1e9;
+
+int main(){
+	dp[1] = 1, dp[2] = 2;
+	
+	for(int i = 3; i < MAX_N; i++){
+		if(i & 1) dp[i] = dp[i - 1];
+		else dp[i] = dp[i - 2] + dp[i / 2];
+		dp[i] %= mod;
+	}
+	
+	while(cin >> N)
+		cout << dp[N] << endl;
+	
+	return 0;
+}
